@@ -1,0 +1,28 @@
+/*Given an integer array nums and an integer k, return the number of pairs (i, j) where i < j such that |nums[i] - nums[j]| == k.
+
+The value of |x| is defined as:
+
+x if x >= 0.
+-x if x < 0.
+ */
+class Solution {
+public:
+    int countKDifference(vector<int>& nums, int k) {
+        
+            int i,j;
+    int cnt=0;
+    for(i=0;i<nums.size()-1;i++)
+    {
+        for(j=i+1;j<nums.size();j++)
+        {
+            if(abs(nums[i]-nums[j])==k)
+            {
+                cnt++;
+            }
+        }
+    }
+    cout<<cnt;
+        return cnt;
+        
+    }
+};
