@@ -1,49 +1,27 @@
-/*You are given a 0-indexed integer array nums of length n.
-
-The average difference of the index i is the absolute difference between the average of the first i + 1 elements of nums and the average of the last n - i - 1 elements. Both averages should be rounded down to the nearest integer.
-
-Return the index with the minimum average difference. If there are multiple such indices, return the smallest one.
-
-Note:
-
-The absolute difference of two numbers is the absolute value of their difference.
-The average of n elements is the sum of the n elements divided (integer division) by n.
-The average of 0 elements is considered to be 0*/
 class Solution {
 public:
-    int minimumAverageDifference(vector<int>& nums) {
-           int minindex = INT_MAX, minval = INT_MAX;
-    long long firstsum = 0, secondsum = 0;
-    int firstavg,secondavg;
-    for (int j = 0; j < nums.size(); j++)
+    
+    void inorder(TreeNode* root,vector<int> &x)
     {
-        secondsum += nums[j];
+        if(root==NULL)
+        {
+            return;
+        }
+        inorder(root->left,x);
+        x.push_back(root->val);
+        inorder(root->right,x);
     }
-    for (int i = 0; i < nums.size() ; i++)
-    {
-        firstsum += nums[i];
-        secondsum-=nums[i];
-
-      
-
-         firstavg = firstsum / (i + 1);
-        if(nums.size()-i-1!=0)
+    int getMinimumDifference(TreeNode* root) {
+                vector<int>x;
+        inorder(root,x);
+        int mdif=INT_MAX;
+        int i;
+        for(i=0;i<x.size()-1;i++)
         {
-        secondavg = secondsum / (nums.size() - i - 1);
+            mdif=min(mdif,x[i+1] - x[i]);
+         
         }
-        else
-        {
-            secondavg=0;
-        }
-      
-        if (minval > abs(firstavg - secondavg))
-        {
-            minval = abs(firstavg - secondavg);
-            minindex = i;
-        }
-    }
-    cout << minindex << endl;
-        return minindex;
+        return mdif;
         
     }
 };
